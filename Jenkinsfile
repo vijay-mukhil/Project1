@@ -5,7 +5,7 @@ pipeline {
         stage('Source Code') {
             steps {
                 echo 'Building..'
-                git [url]
+                //git [url]
                 
             }
         }
