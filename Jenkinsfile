@@ -5,7 +5,7 @@ pipeline {
         stage('Source Code') {
             steps {
                 echo 'Building..'
-                //git [url]
+                git "https://github.com/vijay-mukhil/Project1.git"
                 
             }
         }
