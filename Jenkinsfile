@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project may2021dtc501
-                kubectl set image deployment/ 
+                kubectl set image deployment
             }
         }
     }
