@@ -1,33 +1,26 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Source Code') {
-            steps {
-                echo 'Building..'
-                git branch: 'main', url: 'https://github.com/vijay-mukhil/Project1.git'
-                            }
-        }
+node {
+  try {
+    stage('checkout') {
+      checkout scm
     }
-}
-        stage('Install Dependencies') {
-            steps {
-                echo 'Testing..'
-                sh npm install
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                echo 'Deploying....'
-                gcloud builds submit --tag 
-            }
-        }
-        stage('Update Deployment') {
-            steps {
-                echo 'Deploying....'
-                gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project may2021dtc501
-                kubectl set image deployment/ 
-            }
-        }
+    stage('prepare') {
+      sh "git clean -fdx"
     }
+    stage('compile') {
+      echo "nothing to compile for hello.sh..."
+    }
+    stage('test') {
+      sh "./test_hello.sh"
+    }
+    stage('package') {
+      sh "tar -cvzf hello.tar.gz hello.sh"
+    }
+    stage('publish') {
+      echo "uploading package..."
+    }
+  } finally {
+    stage('cleanup') {
+      echo "doing some cleanup..."
+    }
+  }
 }
